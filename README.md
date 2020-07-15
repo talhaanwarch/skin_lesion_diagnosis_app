@@ -169,6 +169,8 @@ model_path=os.path.join(os.path.dirname(os.path.dirname(__file__)),
 	'sub_app/py_templates/skin_model.pth')
 ```
 * create a function that predict image output
+the path of image in this function should be  
+`image_path=os.path.dirname(os.path.dirname(__file__))+url` where url is arugment of the function
 
 * import this function in views.py file
 
