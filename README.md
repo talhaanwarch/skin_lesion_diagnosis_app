@@ -153,11 +153,11 @@ def home(request):
 	print('here u go')
 	images=image_classification.objects.all()
 	url=images[len(images)-1].pic.url
-	return render(request,'home.html',{'print':"every thing ok",'image':url})
+	return render(request,'home.html',{'print':"every thing ok",'url':url})
 ```
 display image to `home.html` by adding this line 
 `
-<img src="{{image}}" ,width="500" height="400">`
+<img src="{{url}}" ,width="500" height="400">`
 
 # run the model
 * run the ipynb file in colab gpu and save the model
