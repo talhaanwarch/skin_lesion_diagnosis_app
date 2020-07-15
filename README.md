@@ -191,3 +191,14 @@ the path of image in this function should be
 * creat a runtime.txt file comprises of your python version.   
 check using python --version and add it as python-3.7.6   
 you can have different version , i have 3.7.6  
+
+* replace these two line in requirements.txt
+```
+torch==1.5.1+cpu
+torchvision==0.6.1+cpu
+```
+with these  
+```
+https://download.pytorch.org/whl/cpu/torch-1.1.0-cp37-cp37m-linux_x86_64.whl  
+https://download.pytorch.org/whl/cpu/torchvision-0.3.0-cp37-cp37m-linux_x86_64.whl  
+```
