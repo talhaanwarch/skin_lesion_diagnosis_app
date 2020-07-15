@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'sub_app',
 ]
 ```
-**create urls**
+**create urls**  
 create urls.py inside sub_app  
 attach urls.py of subapp to urls.py of main app, write following code in main app urls.py  
 go to main_app url.py  
@@ -59,7 +59,7 @@ urlpatterns = [
     ]
 ```
 **create a template**  
-create a folder templates and inside the template folder create home.html  
+create a folder templates inside sub_app and inside the templates folder create home.html  
 and write {{ print }}
 
 **Go to view.py of sub_app**
