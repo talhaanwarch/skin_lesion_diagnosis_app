@@ -1,4 +1,7 @@
 # skin_lesion_diagnosis_app
+
+# Create Django basic template
+
 **Create virtual environmnet**  
 
 python -m venv venv  
@@ -83,3 +86,71 @@ go to settings.py if main_app, in template section
 after 'DIRS':[], replace `[]` with `[os.path.join(BASE_DIR, 'templates'), ],`  
 refresh the browser
 
+# Add image fild to the basic template
+**create a forum at front page (home) that can load an image**
+```
+<form action='upload' method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<input type="file" name="image">
+	<input type="submit" value="upload file">
+</form>
+```
+**create a model on backend that can recive the image from front end**
+```
+from django.db import models
+class image_classification(models.Model):
+	pic=models.ImageField(upload_to='images')
+```
+**run migration**  
+python manage.py makemigrations  
+python manage.py migrate  
+
+
+**handle uploaded image**  
+create a function in views.py of sub_app that can handle the image uploaded
+```
+from django.shortcuts import render
+from .models import image_classification
+from django.http import HttpResponseRedirect
+
+# this home function is same as before
+def home(request):
+	return render(request,'home.html',{'print':"every thing ok"})
+
+def uploadImage(request):
+	print('image handling')
+	img=request.FILES['image']
+	image=image_classification(pic=img)
+	image.save()
+	return HttpResponseRedirect('/')
+	#return render(request,'home.html')
+```
+**add image folder to settings**  
+the image was saved in folder `images`, connect this folder with the system. Go to settings.py of main_app
+above static lines add following  
+MEDIA_ROOT = os.path.join(BASE_DIR, 'sub_app/media/') 
+MEDIA_URL = '/media/'
+
+**connect this with url.py of sub_app**  
+```
+from django.urls import path
+from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+urlpatterns = [
+    path('',views.home,name='home'),
+    path('upload',views.uploadImage, name='uploadImage')
+    ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+**display the image**  
+go to view.py of sub_app and change home function as follow  
+```
+def home(request):
+	print('here u go')
+	images=image_classification.objects.all()
+	url=images[len(images)-1].pic.url
+	return render(request,'home.html',{'print':"every thing ok",'image':url})
+```
+display image to `home.html` by adding this line 
+`
+<img src="{{image}}" ,width="500" height="400">`
