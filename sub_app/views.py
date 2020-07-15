@@ -7,10 +7,19 @@ dis={0:'Basal Cell Carcinoma (BCC)',1:'Actinic Keratosis (ACK)',2:'Nevus (NEV)',
 def home(request):
 	print('here u go')
 	images=image_classification.objects.all()
-	url=images[len(images)-1].pic.url
-	out=image_pred(url)
-	out=dis[int(out)]
-	return render(request,'home.html',{'pred':out,'url':url})
+	try:
+		url=images[len(images)-1].pic.url
+		print('url is',url)
+		out=image_pred(url)
+		out=dis[int(out)]
+		return render(request,'home.html',{'pred':out,'url':url})
+	except FileNotFoundError:
+		return render(request,'home.html',{'pred':'no image'})
+
+
+
+
+
 def uploadImage(request):
 	print('image handling')
 	img=request.FILES['image']

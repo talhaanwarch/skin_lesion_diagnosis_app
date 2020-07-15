@@ -4,12 +4,16 @@ from torchvision import transforms
 from PIL import Image
 import numpy as np 
 
-model_path=os.path.join(os.path.dirname(os.path.dirname(__file__)),
-	'py_templates/skin_model_b3.pth')
+model_densenet=os.path.join(os.path.dirname(os.path.dirname(__file__)),
+	'py_templates/skin_model_densenet.pth')
+
+model_efficient=os.path.join(os.path.dirname(os.path.dirname(__file__)),
+	'py_templates/skin_model_final.pth')
+
 image_path=os.path.dirname(os.path.dirname(__file__))
 
 aug=transforms.Compose([
-                        transforms.Resize((300,300)),
+                        transforms.Resize((224,224)),
                         #transforms.CenterCrop(10),
                         transforms.RandomAffine(degrees=0, translate=None, scale=(1,1.5), shear=None, resample=Image.NEAREST, fillcolor=0),
                         transforms.RandomHorizontalFlip(),transforms.RandomVerticalFlip(),transforms.RandomRotation(360),
@@ -19,7 +23,8 @@ aug=transforms.Compose([
                         ])
 
 #load model
-model=torch.load(model_path, map_location=lambda storage, loc: storage)
+model_d=torch.load(model_densenet, map_location=lambda storage, loc: storage)
+model_e=torch.load(model_efficient, map_location=lambda storage, loc: storage)
 
 #create a function that predict labels
 def image_pred(url):
@@ -29,10 +34,19 @@ def image_pred(url):
 	image = aug(img)
 	image=image.unsqueeze(0) #add another dimension at 0
 	out=torch.zeros((3,6))
-	for i in range(3):
-		out[i,:]=model(image)
+	model_d.eval()
+	model_e.eval()
+
+	outd=model_d(image)
+	oute=model_e(image)
+
+
+	oute=torch.mean(oute,dim=0)
+	outd=torch.mean(outd,dim=0)
+
+	out=torch.stack((outd,oute),dim=0)
+
 	out=torch.mean(out,dim=0)
-	print(out)
 	out=out.detach().numpy()
 	out=np.argmax(out)
 	return out
