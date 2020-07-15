@@ -159,6 +159,9 @@ display image to `home.html` by adding this line
 * run the ipynb file in colab gpu and save the model
 * install pytorch cpu model, becuase heroku dont support gpu
 `pip install torch==1.5.1+cpu torchvision==0.6.1+cpu -f https://download.pytorch.org/whl/torch_stable.html`
+* install efficient net and pillow  
+	pip install efficientnet_pytorch  
+	pip install Pillow  
 * create py_templates folder in sub_app
 * -create a file in my_model.py in py_templates
 * save the model file in py_templates folder
@@ -170,9 +173,15 @@ model_path=os.path.join(os.path.dirname(os.path.dirname(__file__)),
 ```
 * create a function that predict image output
 the path of image in this function should be  
-`image_path=os.path.dirname(os.path.dirname(__file__))+url` where url is arugment of the function
+`image_path=os.path.dirname(os.path.dirname(__file__))+url` where url is argument of the function
 
 * import this function in views.py file
 
-
-
+# host the app to herko
+* create an account on heroku and github
+* upload all of your files at github, dont upload venv folder
+* create Procfile
+`web: gunicorn main_app.wsgi:application --log-file -`
+create a requirement files
+`pip freeze > requirements.txt`
+creat a runtime.txt file comprises of your python version
