@@ -41,11 +41,11 @@ go to main_app url.py
 ``` 
 from django.contrib import admin
 from django.urls import path,include
-from todo_list import views
+from sub_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('todo_list.urls'))
+    path('',include('sub_app.urls'))
 ]
 ```
 
@@ -68,6 +68,6 @@ from django.shortcuts import render
 def home(request):
 	return render(request,'home.html',{'print':"every thing ok"})
 ```
-Now run python manage.py runserver and you will every thing ok on browser
+Now run `python manage.py runserver` and you will every thing ok on browser
 
 
