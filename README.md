@@ -101,6 +101,10 @@ from django.db import models
 class image_classification(models.Model):
 	pic=models.ImageField(upload_to='images')
 ```
+
+**need pillow library for uploading image**  
+pip install Pillow   
+
 **run migration**  
 python manage.py makemigrations  
 python manage.py migrate  
@@ -159,9 +163,9 @@ display image to `home.html` by adding this line
 * run the ipynb file in colab gpu and save the model
 * install pytorch cpu model, becuase heroku dont support gpu
 `pip install torch==1.5.1+cpu torchvision==0.6.1+cpu -f https://download.pytorch.org/whl/torch_stable.html`
-* install efficient net and pillow  
+* install efficient net 
 	pip install efficientnet_pytorch  
-	pip install Pillow  
+	 
 * create py_templates folder in sub_app
 * -create a file in my_model.py in py_templates
 * save the model file in py_templates folder
