@@ -62,6 +62,12 @@ urlpatterns = [
 create a folder templates inside sub_app and inside the templates folder create home.html  
 and write {{ print }}
 
+connect this template folder with main_app
+go to settings.py and after `STATIC_URL = '/static/'` add following  
+`STATIC_ROOT = os.path.join(BASE_DIR, 'static')`
+
+
+
 **Go to view.py of sub_app**
 ```
 from django.shortcuts import render
