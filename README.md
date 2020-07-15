@@ -184,8 +184,12 @@ the path of image in this function should be
 # host the app to herko
 * create an account on heroku and github
 * upload all of your files at github, dont upload venv folder
-* create Procfile
+* allowed host  
+in settings of main_app, change `ALLOWED_HOSTS = []` to `ALLOWED_HOSTS = ['*']`  
+* create Procfile  
 `web: gunicorn main_app.wsgi:application --log-file -`
+* install gunicorn  
+pip install gunicorn  
 * create a requirement files
 `pip freeze > requirements.txt`
 * creat a runtime.txt file comprises of your python version.   
