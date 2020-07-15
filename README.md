@@ -182,6 +182,8 @@ the path of image in this function should be
 * upload all of your files at github, dont upload venv folder
 * create Procfile
 `web: gunicorn main_app.wsgi:application --log-file -`
-create a requirement files
+* create a requirement files
 `pip freeze > requirements.txt`
-creat a runtime.txt file comprises of your python version
+* creat a runtime.txt file comprises of your python version.   
+check using python --version and add it as python-3.7.6   
+you can have different version , i have 3.7.6  
