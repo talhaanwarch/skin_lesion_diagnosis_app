@@ -154,3 +154,23 @@ def home(request):
 display image to `home.html` by adding this line 
 `
 <img src="{{image}}" ,width="500" height="400">`
+
+# run the model
+* run the ipynb file in colab gpu and save the model
+* install pytorch cpu model, becuase heroku dont support gpu
+`pip install torch==1.5.1+cpu torchvision==0.6.1+cpu -f https://download.pytorch.org/whl/torch_stable.html`
+* create py_templates folder in sub_app
+* -create a file in my_model.py in py_templates
+* save the model file in py_templates folder
+* add path where the model file is hosted 
+in my case, it is in py_template folder, so i add
+```
+model_path=os.path.join(os.path.dirname(os.path.dirname(__file__)),
+	'sub_app/py_templates/skin_model.pth')
+```
+* create a function that predict image output
+
+* import this function in views.py file
+
+
+
