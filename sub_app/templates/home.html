@@ -1,9 +1,24 @@
-{{ pred }}
+<center><h1>Detection of skin disease using deap learning</h1></center>
 
+<center>	
 <form action='upload' method="post" enctype="multipart/form-data">
 	{% csrf_token %}
 	<input type="file" name="image">
 	<input type="submit" value="upload file">
 </form>
-
+</center>
+<center>	
 <img src="{{url}}" ,width="500" height="400">
+</center>	
+
+<center>
+	<h3>{{ pred }}</h3>
+</center>
+
+<center>
+<p>We almost got the same result, mentioned in the paper <br>
+<a href="https://www.sciencedirect.com/science/article/pii/S0010482519304019?via%3Dihub">The impact of patient clinical information on automated skin cancer detection</a>.<br>
+Pardon me for such as ugly website, as i am not good in frontend web devolopment. <br>
+If you want to contribute, please open a PR at my <a href="https://github.com/talhaanwarch/skin_lesion_diagnosis_app">github repo</a>
+ </p>
+ </center>
