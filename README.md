@@ -68,6 +68,12 @@ from django.shortcuts import render
 def home(request):
 	return render(request,'home.html',{'print':"every thing ok"})
 ```
-Now run `python manage.py runserver` and you will every thing ok on browser
-
+**RUN app**  
+Now run `python manage.py runserver` and you will every thing ok on browser  
+**ERROR**  
+if you got error  
+TemplateDoesNotExist at / home.html in my project  
+go to settings.py if main_app, in template section   
+after 'DIRS':[], replace `[]` with `[os.path.join(BASE_DIR, 'templates'), ],`  
+refresh the browser
 
