@@ -40,13 +40,10 @@ def uploadURL(request):
 	#file_name='image{}.jpg'.format(np.random.randint())
 	print('image is uploaded using url')
 	url=request.POST.get('imgurls')
-	print(url)
 	# img=Image.open(urllib2.urlopen(url))
 	# img=Image.open(requests.get(url, stream=True).raw)
 	imgurl=requests.get(url, stream=True).raw
-	print('new url',imgurl)
 	out=image_pred(imgurl)
-	print(out)
 	out=dis[int(out)]
 	#img.save(file_name)
 	return render(request,'home.html',{'pred':out,'url':url})
