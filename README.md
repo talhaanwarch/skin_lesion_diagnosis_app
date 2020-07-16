@@ -217,3 +217,8 @@ create .env file in main_app and save secret key as
 SECRET_KEY = '4dxow@h!n8-thd*)mpw1xx6)hok_zc@pro$s)6%0blb@u9cztm'  
 install pip install django-environ and save it to requirement.txt   
 add .env to gitignore   
+
+
+
+# Updates  
+https://stackoverflow.com/a/49374520/11170350
