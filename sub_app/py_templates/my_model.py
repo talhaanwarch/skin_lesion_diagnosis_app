@@ -35,8 +35,8 @@ def image_pred(url):
 	img = Image.open(new_url)
 	img=img.convert(mode='RGB')
 	image = aug(img)
-	image=image.unsqueeze(0) #add another dimension at 0
-	out=torch.zeros((3,6))
+	image=image.unsqueeze(0).cpu() #add another dimension at 0
+
 	model_d.eval()
 	model_e.eval()
 
