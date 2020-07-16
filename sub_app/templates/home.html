@@ -1,12 +1,24 @@
 <center><h1>Detection of skin disease using deep learning</h1></center>
 
+
 <center>	
 <form action='upload' method="post" enctype="multipart/form-data">
+	<label> Upload Image</label>
 	{% csrf_token %}
 	<input type="file" name="image">
 	<input type="submit" value="upload file">
 </form>
+
+
+<form action='upoadbyURL' method="POST"> 
+	<label> Add image URL</label>
+    {% csrf_token %}
+    <input  type="url" name="imgurls" >
+    <input type="submit" value="OK">
+</form>
 </center>
+
+
 <center>	
 <img src="{{url}}" ,width="500" height="400">
 </center>	

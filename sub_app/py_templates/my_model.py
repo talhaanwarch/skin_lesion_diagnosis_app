@@ -28,7 +28,10 @@ model_e=torch.load(model_efficient, map_location=lambda storage, loc: storage)
 
 #create a function that predict labels
 def image_pred(url):
-	new_url=image_path+url
+	try:
+		new_url=image_path+url
+	except TypeError:
+		new_url=url
 	img = Image.open(new_url)
 	img=img.convert(mode='RGB')
 	image = aug(img)
