@@ -13,13 +13,13 @@ dis={0:'Basal Cell Carcinoma (BCC)',1:'Actinic Keratosis (ACK)',2:'Nevus (NEV)',
 
 def home(request):
 	
-	print('here u go')
+	
 	images=image_classification.objects.all()
 	try:
 		url=images[len(images)-1].pic.url
-		print('url is',url)
 		out=image_pred(url)
 		out=dis[int(out)]
+		print('-----disease is------- ',out,'----------')
 		return render(request,'home.html',{'pred':out,'url':url})
 	except FileNotFoundError:
 		return render(request,'home.html',{'pred':'no image'})
@@ -29,7 +29,7 @@ def home(request):
 
 
 def uploadImage(request):
-	print('image handling')
+	print('image uploaded via disk')
 	img=request.FILES['image']
 	image=image_classification(pic=img)
 	image.save()
@@ -38,7 +38,7 @@ def uploadImage(request):
 
 def uploadURL(request):
 	#file_name='image{}.jpg'.format(np.random.randint())
-	print('image is uploaded using url')
+	print('image is uploaded via url')
 	url=request.POST.get('imgurls')
 	# img=Image.open(urllib2.urlopen(url))
 	# img=Image.open(requests.get(url, stream=True).raw)
