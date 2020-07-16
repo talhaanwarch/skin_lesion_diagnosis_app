@@ -208,3 +208,12 @@ https://download.pytorch.org/whl/cpu/torchvision-0.3.0-cp37-cp37m-linux_x86_64.w
 ```
 * for static files at heroku, follow this   
 https://devcenter.heroku.com/articles/django-assets  
+
+* set DEBUG =False in settings.py
+* Go to app settings and at heroku Config Vars save secret keys with out ''
+such as 
+SECRET_KEY = abcow@h!n8-abc*)abc1xx6)hok_zc@pro$s)6%0abc@u9cztm  
+create .env file in main_app and save secret key as   
+SECRET_KEY = '4dxow@h!n8-thd*)mpw1xx6)hok_zc@pro$s)6%0blb@u9cztm'  
+install pip install django-environ and save it to requirement.txt   
+add .env to gitignore   
