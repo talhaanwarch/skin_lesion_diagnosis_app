@@ -3,31 +3,74 @@ html{
 	
 }
 
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: gray;
+  text-align: center;
 
+}
 
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 2px solid gray;
+    color: gray;
+  	background-color: white;
+  	padding: 8px 90px;
+  	border-radius: 8px;
+  	font-size: 20px;
+  	font-weight: bold;
+  	margin-left: 40px;
+  	margin-right: 40px
+}
 
+.custom-file-button {
+    border: 2px solid gray;
+    color: gray;
+  	background-color: white;
+  	padding: 8px 20px;
+  	border-radius: 8px;
+  	font-size: 20px;
+  	font-weight: bold;
+  	margin-left: 40px;
+  	margin-right: 40px
+}
+
+.custom-url-button {
+    border: 2px solid gray;
+    color: gray;
+  	background-color: white;
+  	padding: 8px 20px;
+  	border-radius: 8px;
+  	font-size: 20px;
+  	font-weight: bold;
+  	margin-left: 40px;
+  	margin-right: 40px
+}
+
+input[type=url] {
+   /* Awesome styling */
+   border: 2px solid gray;
+    color: gray;
+  	background-color: white;
+  	padding: 8px 20px;
+  	border-radius: 8px;
+  	font-size: 20px;
+  	font-weight: bold;
+  	margin-left: 40px;
+  	margin-right: 40px
+}
 
 
 h4{
-	color:blue;
+	color:green;
 }
 
-.upload-form-style{
-	font:24;
+
 	
-}
-.labels{
-	text-align: center;
-	border:6px;
-}
-
-.divtable{
-
-	border: 3px outset blue;
-	width: fit-content;
+.table{
 	margin-left: auto;
   	margin-right: auto;
-
 }
 
 .divform{

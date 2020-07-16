@@ -10,22 +10,31 @@
 <center><h1>Detection of skin disease using deep learning</h1></center>
 
 <div class='divform'>
-	<center><h2>Upload Image</h2></center>
+	<center><h2>Upload Image or Enter URL</h2></center>
 
 
-<form class="upload-form-style" action='upload' method="post" enctype="multipart/form-data">
-	<label> Upload Image</label>
-	{% csrf_token %}
-	<input type="file" name="image">
-	<input type="submit" value="upload Image">
+<form action='upload' method="post" enctype="multipart/form-data">
+<label for="file-upload" class="custom-file-upload">
+      Upload Image
+</label>
+{% csrf_token %}
+<input id="file-upload" type="file" name="image"/>
+<input type="submit" class="custom-file-button">
 </form>
+
+
+
 <br>
 <p>OR</p>
-<form class="url-form-style" action='upoadbyURL' method="POST"> 
-	<label> Add image URL</label>
+
+
+
+
+<form  action='upoadbyURL' method="POST"> 
+	
     {% csrf_token %}
-    <input  type="url" name="imgurls" >
-    <input type="submit" value="Submit">
+    <input  type="url" placeholder="Add Image URL here" name="imgurls" >
+    <input type="submit" class="custom-url-button" >
 </form>
 </div>
 
@@ -37,12 +46,12 @@
 
 
 <center>
-	<h3 style='color:red;'> Skin Disease is {{ pred }}</h3>
+	<h2 style='color:red;'> Skin Disease is {{ pred }}</h2>
 </center>
 
-<div class="divtable">
+
 <h3> <center>Model Performace </center></h3>	
-<table>
+<table class="table">>
 <thead>
   <tr>
     <th>Disease</th>
@@ -106,7 +115,7 @@
   </tr>
 </tbody>
 </table>
-</div>
+
 
 
 <center>
@@ -117,8 +126,7 @@ Pardon me for such as ugly website, as i am not good in frontend web devolopment
 If you want to contribute, please open a PR at my <a href="https://github.com/talhaanwarch/skin_lesion_diagnosis_app">github repo</a>
  </p>
  </center>
- <center>
- <h4> Talha Anwar</h4></center>
+ <center><h4> Talha Anwar</h4></center>
 </body>
 </html>
 
