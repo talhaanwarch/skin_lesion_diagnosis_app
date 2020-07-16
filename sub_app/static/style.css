@@ -1,0 +1,38 @@
+html{
+	margin: 25px 50px 75px 50px;
+	
+}
+
+
+
+
+
+
+h4{
+	color:blue;
+}
+
+.upload-form-style{
+	font:24;
+	
+}
+.labels{
+	text-align: center;
+	border:6px;
+}
+
+.divtable{
+
+	border: 3px outset blue;
+	width: fit-content;
+	margin-left: auto;
+  	margin-right: auto;
+
+}
+
+.divform{
+	width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 30px;
+}

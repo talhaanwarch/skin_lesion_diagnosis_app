@@ -1,47 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Skin Disease Classification</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+
 <center><h1>Detection of skin disease using deep learning</h1></center>
 
+<div class='divform'>
+	<center><h2>Upload Image</h2></center>
 
-<center>	
-<form action='upload' method="post" enctype="multipart/form-data">
+
+<form class="upload-form-style" action='upload' method="post" enctype="multipart/form-data">
 	<label> Upload Image</label>
 	{% csrf_token %}
 	<input type="file" name="image">
-	<input type="submit" value="upload file">
+	<input type="submit" value="upload Image">
 </form>
-
-
-<form action='upoadbyURL' method="POST"> 
+<br>
+<p>OR</p>
+<form class="url-form-style" action='upoadbyURL' method="POST"> 
 	<label> Add image URL</label>
     {% csrf_token %}
     <input  type="url" name="imgurls" >
-    <input type="submit" value="OK">
+    <input type="submit" value="Submit">
 </form>
-</center>
+</div>
 
 
 <center>	
+	<h3><center> Display Image and Result </center></h3>
 <img src="{{url}}" ,width="500" height="400">
 </center>	
 
+
 <center>
-	<h3>{{ pred }}</h3>
+	<h3 style='color:red;'> Skin Disease is {{ pred }}</h3>
 </center>
 
-<h4>Here you can diagnose six skin diseases	</h4>	
-<ul>
-	<li>Actinic Keratosis (ACK)	</li>
-	<li>Basal Cell Carcinoma (BCC)	</li>
-	<li>Melanoma (MEL)	</li>
-	<li>Nevus (NEV)	</li>
-	<li>Squamous Cell Carcinoma (SCC)	</li>
-	<li>Seborrheic Keratosis (SEK)	</li>
-</ul>
-
-<center><img src="result.png" alt="result"></center>
-
+<div class="divtable">
+<h3> <center>Model Performace </center></h3>	
+<table>
+<thead>
+  <tr>
+    <th>Disease</th>
+    <th>Precision</th>
+    <th>Recall</th>
+    <th>F1-score</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Basal Cell Carcinoma (BCC)</td>
+    <td>70%</td>
+    <td>73%</td>
+    <td>72%</td>
+  </tr>
+  <tr>
+    <td>Actinic Keratosis (ACK)</td>
+    <td>78%</td>
+    <td>70%</td>
+    <td>74%</td>
+  </tr>
+  <tr>
+    <td>Nevus (NEV)</td>
+    <td>66%</td>
+    <td>73%</td>
+    <td>69%</td>
+  </tr>
+  <tr>
+    <td>Seborrheic Keratosis (SEK)</td>
+    <td>71%</td>
+    <td>77%</td>
+    <td>74%</td>
+  </tr>
+  <tr>
+    <td>Squamous Cell Carcinoma (SCC)</td>
+    <td>33%</td>
+    <td>31%</td>
+    <td>32%</td>
+  </tr>
+  <tr>
+    <td>Melanoma (MEL)</td>
+    <td>80%</td>
+    <td>100%</td>
+    <td>89%</td>
+  </tr>
+  <tr>
+    <td>Macro Average</td>
+    <td>66%</td>
+    <td>71%</td>
+    <td>68%</td>
+  </tr>
+  <tr>
+    <td>Weighted Average</td>
+    <td>70%</td>
+    <td>70%</td>
+    <td>70%</td>
+  </tr>
+  <tr>
+    <td>Accuracy</td>
+    <td colspan="3">70%</td>
+  </tr>
+</tbody>
+</table>
+</div>
 
 
 <center>
+	<h3> Notice</h3>
 <p>We almost got the same result, mentioned in the paper <br>
 <a href="https://www.sciencedirect.com/science/article/pii/S0010482519304019?via%3Dihub">The impact of patient clinical information on automated skin cancer detection</a>.<br>
 Pardon me for such as ugly website, as i am not good in frontend web devolopment. <br>
@@ -50,3 +119,6 @@ If you want to contribute, please open a PR at my <a href="https://github.com/ta
  </center>
  <center>
  <h4> Talha Anwar</h4></center>
+</body>
+</html>
+
