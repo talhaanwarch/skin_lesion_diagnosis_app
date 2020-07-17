@@ -19,6 +19,7 @@ def home(request):
 		url=images[len(images)-1].pic.url
 		out=image_pred(url)
 		out=dis[int(out)]
+		print('----------------',url,'----------------')
 		print('-----disease is------- ',out,'----------')
 		return render(request,'home.html',{'pred':out,'url':url})
 	except FileNotFoundError:
