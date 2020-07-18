@@ -6,4 +6,4 @@ urlpatterns = [
     path('',views.home,name='home'),
     path('upload',views.uploadImage, name='uploadImage'),
     path('upoadbyURL',views.uploadURL, name='uploadURL')
-    ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    ]
