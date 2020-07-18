@@ -135,16 +135,20 @@ above static lines add following
 MEDIA_ROOT = os.path.join(BASE_DIR, 'sub_app/media/') 
 MEDIA_URL = '/media/'
 
-**connect this with url.py of sub_app**  
+**connect this with url.py of main_app**  
 ```
-from django.urls import path
-from . import views
+from django.contrib import admin
+from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
-    path('',views.home,name='home'),
-    path('upload',views.uploadImage, name='uploadImage')
-    ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('admin/', admin.site.urls),
+    path('',include('sub_app.urls'))
+    ]
+
+urlpatterns+= static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 ```
 **display the image**  
 go to view.py of sub_app and change home function as follow  
