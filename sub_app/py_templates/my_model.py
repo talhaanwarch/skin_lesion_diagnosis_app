@@ -3,12 +3,9 @@ import torch
 from torchvision import transforms
 from PIL import Image
 import numpy as np 
+from ..apps import SubAppConfig
 
-model_densenet=os.path.join(os.path.dirname(os.path.dirname(__file__)),
-	'py_templates/skin_model_densenet.pth')
 
-model_efficient=os.path.join(os.path.dirname(os.path.dirname(__file__)),
-	'py_templates/skin_model_final.pth')
 
 image_path=os.path.dirname(os.path.dirname(__file__))
 
@@ -23,8 +20,6 @@ aug=transforms.Compose([
                         ])
 
 #load model
-model_d=torch.load(model_densenet, map_location=lambda storage, loc: storage)
-model_e=torch.load(model_efficient, map_location=lambda storage, loc: storage)
 
 #create a function that predict labels
 def image_pred(url):
@@ -32,16 +27,17 @@ def image_pred(url):
 		new_url=image_path+url
 	except TypeError:
 		new_url=url
+	print('url',new_url)
 	img = Image.open(new_url)
 	img=img.convert(mode='RGB')
 	image = aug(img)
 	image=image.unsqueeze(0).cpu() #add another dimension at 0
 
-	model_d.eval()
-	model_e.eval()
+	SubAppConfig.model_d.eval()
+	SubAppConfig.model_e.eval()
 
-	outd=model_d(image)
-	oute=model_e(image)
+	outd=SubAppConfig.model_d(image)
+	oute=SubAppConfig.model_e(image)
 
 
 	oute=torch.mean(oute,dim=0)
@@ -51,8 +47,10 @@ def image_pred(url):
 
 	out=torch.mean(out,dim=0)
 	out=out.detach().numpy()
-	out=np.argmax(out)
-	return out
+	out=np.exp(out)/sum(np.exp(out))
+
+	#out=np.argmax(out)
+	return out.round(3)
 
 
 

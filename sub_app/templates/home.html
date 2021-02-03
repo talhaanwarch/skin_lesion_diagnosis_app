@@ -40,11 +40,14 @@
 
 
 <center>	
-	<h3><center> Display Image and Result </center></h3>
+	<h3><center> Display Result </center></h3>
 
+{% for p in pred %}
+{{ p }}<br>
+{% endfor %}
+  <!-- <h2 style='color:red;'>  {{ pred }}</h2> -->
 
-  <h2 style='color:red;'> Skin Disease is {{ pred }}</h2>
-
+  <h3><center> Display Image </center></h3>
 
 <img src="{{url}}" ,width="500" height="400">
 </center>	

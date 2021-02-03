@@ -21,8 +21,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = '4dxow@h!n8-thd*)mpw1xx6)hok_zc@pro$s)6%0blb@u9cztm'
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = '4dxow@h!n8-thd*)mpw1xx6)hok_zc@pro$s)6%0blb@u9cztm'
+#SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -132,3 +132,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'sub_app','static')
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #the above give me 500 error
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+MODELS = os.path.join(BASE_DIR, 'sub_app/py_templates')

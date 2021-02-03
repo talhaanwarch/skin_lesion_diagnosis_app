@@ -8,7 +8,7 @@ import numpy as np
 
 dis={0:'Basal Cell Carcinoma (BCC)',1:'Actinic Keratosis (ACK)',2:'Nevus (NEV)',
 3:'Seborrheic Keratosis (SEK)',4:'Squamous Cell Carcinoma (SCC)	',5:'Melanoma (MEL)'}
-
+diseases=['Basal Cell Carcinoma','Actinic Keratosis','Nevus','Seborrheic Keratosis','Squamous Cell Carcinoma','Melanoma']
 
 
 def home(request):
@@ -19,7 +19,9 @@ def home(request):
 		
 		url=images[len(images)-1].pic.url
 		out=image_pred(url)
-		out=dis[int(out)]
+		out=list(zip(diseases,out*100))
+		#print('out is',out)
+		#out=dis[int(out)]
 		print('----------------',url,'----------------')
 		print('-----disease is------- ',out,'----------')
 		return render(request,'home.html',{'pred':out,'url':url})
@@ -46,6 +48,7 @@ def uploadURL(request):
 	# img=Image.open(requests.get(url, stream=True).raw)
 	imgurl=requests.get(url, stream=True).raw
 	out=image_pred(imgurl)
-	out=dis[int(out)]
+	out=list(zip(diseases,out*100))
+	#out=dis[int(out)]
 	#img.save(file_name)
 	return render(request,'home.html',{'pred':out,'url':url})
