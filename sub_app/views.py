@@ -26,7 +26,7 @@ def home(request):
 		print('-----disease is------- ',out,'----------')
 		return render(request,'home.html',{'pred':out,'url':url})
 	except FileNotFoundError:
-		return render(request,'home.html',{'pred':'no image'})
+		return render(request,'home.html',{'pred':"None"})
 
 
 

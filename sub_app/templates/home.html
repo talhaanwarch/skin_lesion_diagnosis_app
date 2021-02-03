@@ -42,9 +42,16 @@
 <center>	
 	<h3><center> Display Result </center></h3>
 
+
+{% if pred == "None" %}
+No image
+{% else %}
 {% for p in pred %}
 {{ p }}<br>
 {% endfor %}
+{% endif %}
+
+
   <!-- <h2 style='color:red;'>  {{ pred }}</h2> -->
 
   <h3><center> Display Image </center></h3>
