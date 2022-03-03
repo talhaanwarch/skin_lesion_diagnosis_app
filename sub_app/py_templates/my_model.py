@@ -1,6 +1,4 @@
 import os
-import torch
-from torchvision import transforms
 from PIL import Image
 import numpy as np 
 from ..apps import SubAppConfig
@@ -9,48 +7,45 @@ from ..apps import SubAppConfig
 
 image_path=os.path.dirname(os.path.dirname(__file__))
 
-aug=transforms.Compose([
-                        transforms.Resize((224,224)),
-                        #transforms.CenterCrop(10),
-                        transforms.RandomAffine(degrees=0, translate=None, scale=(1,1.5), shear=None, resample=Image.NEAREST, fillcolor=0),
-                        transforms.RandomHorizontalFlip(),transforms.RandomVerticalFlip(),transforms.RandomRotation(360),
-                        transforms.ToTensor(),
-                        transforms.Normalize([0.5820, 0.4512, 0.4023], [0.2217, 0.1858, 0.1705]),
-
-                        ])
 
 #load model
 
+def getpred(ort_session,img):
+	ort_inputs = {ort_session.get_inputs()[0].name: img}
+	ort_outs = ort_session.run(None, ort_inputs)[0]
+	#img_out_y = np.argmax(ort_outs[0],1)[0]
+	return ort_outs.ravel()
+
 #create a function that predict labels
-def image_pred(url):
-	try:
+def image_pred(url,upload=True):
+	if upload:
 		new_url=image_path+url
-	except TypeError:
+	else:
 		new_url=url
-	print('url',new_url)
 	img = Image.open(new_url)
 	img=img.convert(mode='RGB')
-	image = aug(img)
-	image=image.unsqueeze(0).cpu() #add another dimension at 0
+	img=img.resize((224,224))
+	img=np.array(img)/255
+	image = (img - [0.485, 0.456, 0.406]) / [0.229, 0.224, 0.225]
+	print('image.shape',image.shape)#(224, 224, 3)
+	img=np.moveaxis(image,2,0)#(3,224, 224)
+	img=np.expand_dims(img,0)#(1,3,224, 224)
+	img=img.astype(np.float32)#ort require float instead of double
 
-	SubAppConfig.model_d.eval()
-	SubAppConfig.model_e.eval()
+	sess1=SubAppConfig.model1_session
+	out1=getpred(sess1,img)
 
-	outd=SubAppConfig.model_d(image)
-	oute=SubAppConfig.model_e(image)
+	sess2=SubAppConfig.model2_session
+	out2=getpred(sess2,img)
 
+	sess3=SubAppConfig.model3_session
+	out3=getpred(sess3,img)
 
-	oute=torch.mean(oute,dim=0)
-	outd=torch.mean(outd,dim=0)
+	out=np.mean([out1,out2,out3],axis=0)
 
-	out=torch.stack((outd,oute),dim=0)
+	prob=np.exp(out)/sum(np.exp(out))
 
-	out=torch.mean(out,dim=0)
-	out=out.detach().numpy()
-	out=np.exp(out)/sum(np.exp(out))
-
-	#out=np.argmax(out)
-	return out.round(3)
+	return np.argmax(out),prob.round(3)
 
 
 

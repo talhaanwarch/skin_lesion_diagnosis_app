@@ -1,10 +1,13 @@
 from django.apps import AppConfig
 import os
 from django.conf import settings
-import torch
+import onnxruntime
 class SubAppConfig(AppConfig):
 	name = 'sub_app'
-	model_densenet=model_path = os.path.join(settings.MODELS, 'skin_model_densenet.pth')
-	model_efficient=os.path.join(settings.MODELS, 'skin_model_final.pth')
-	model_d=torch.load(model_densenet, map_location=lambda storage, loc: storage)
-	model_e=torch.load(model_efficient, map_location=lambda storage, loc: storage)
+	model1_path = os.path.join(settings.MODELS, 'mobilenetv3_rw_skin.onnx')
+	model2_path =os.path.join(settings.MODELS, 'rexnet_100_skin.onnx')
+	model3_path =os.path.join(settings.MODELS, 'mobilenetv3_rw_skin.onnx')
+
+	model1_session = onnxruntime.InferenceSession(model1_path)
+	model2_session = onnxruntime.InferenceSession(model2_path)
+	model3_session = onnxruntime.InferenceSession(model3_path)

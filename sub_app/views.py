@@ -1,54 +1,46 @@
 from django.shortcuts import render
-from .models import image_classification
 from django.http import HttpResponseRedirect
 from .py_templates.my_model import image_pred
 from PIL import Image
 import requests
 import numpy as np
-
-dis={0:'Basal Cell Carcinoma (BCC)',1:'Actinic Keratosis (ACK)',2:'Nevus (NEV)',
-3:'Seborrheic Keratosis (SEK)',4:'Squamous Cell Carcinoma (SCC)	',5:'Melanoma (MEL)'}
-diseases=['Basal Cell Carcinoma','Actinic Keratosis','Nevus','Seborrheic Keratosis','Squamous Cell Carcinoma','Melanoma']
+from .forms import SkinForm
+from django.core.files.storage import FileSystemStorage
+import os 
+from django.conf import settings
+decode={0: 'Nevus (NEV)', 1: 'Basal Cell Carcinoma (BCC)', 2: 'Actinic Keratosis (ACK)',
+ 3: 'Squamous Cell Carcinoma (SCC)', 4: 'Melanoma', 5: 'Benign Keratosis lesions (BKL)'}
 
 
 def home(request):
 	
-	
-	images=image_classification.objects.all()
-	try:
-		
-		url=images[len(images)-1].pic.url
-		out=image_pred(url)
-		out=list(zip(diseases,out*100))
-		#print('out is',out)
-		#out=dis[int(out)]
-		print('----------------',url,'----------------')
-		print('-----disease is------- ',out,'----------')
-		return render(request,'home.html',{'pred':out,'url':url})
-	except FileNotFoundError:
-		return render(request,'home.html',{'pred':"None"})
+	if request.method=='POST':
+		form = SkinForm(request.POST,request.FILES)
+		if form.is_valid():
+			print('form is valid')
+			img=form.cleaned_data['pic']
+			url=form.cleaned_data['url']
+			if img:
+				fs = FileSystemStorage()
+				filename = fs.save(img.name, img)
+				path = fs.url(filename)
+				label,proba=image_pred(path)
+				#path=os.path.join(settings.MEDIA_ROOT,filename)
+				print('path',path)
+			elif url:
+				imgurl=requests.get(url, stream=True).raw
+				label,proba=image_pred(imgurl,upload=False)
+				path=url
+			else:
+				form = SkinForm()
+				return render(request,'home.html',{'form':form,'pred':"None"})
+
+			out=list(zip(decode.values(),proba*100))
+			statement='Chances of {} are {} %'.format(decode[label],np.round(proba[label]*100),3)
+			return render(request,'home.html',{'form':form,'pred':out,'path':path,'disease':statement})
+	else:
+		form = SkinForm()
+		return render(request,'home.html',{'form':form,'pred':"None"})
 
 
 
-
-
-def uploadImage(request):
-	print('image uploaded via disk')
-	img=request.FILES['image']
-	image=image_classification(pic=img)
-	image.save()
-	return HttpResponseRedirect('/')
-	#return render(request,'home.html')
-
-def uploadURL(request):
-	#file_name='image{}.jpg'.format(np.random.randint())
-	print('image is uploaded via url')
-	url=request.POST.get('imgurls')
-	# img=Image.open(urllib2.urlopen(url))
-	# img=Image.open(requests.get(url, stream=True).raw)
-	imgurl=requests.get(url, stream=True).raw
-	out=image_pred(imgurl)
-	out=list(zip(diseases,out*100))
-	#out=dis[int(out)]
-	#img.save(file_name)
-	return render(request,'home.html',{'pred':out,'url':url})

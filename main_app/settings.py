@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import environ
-environ.Env.read_env()
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -77,12 +76,12 @@ WSGI_APPLICATION = 'main_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
@@ -133,3 +132,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'sub_app','static')
 #the above give me 500 error
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 MODELS = os.path.join(BASE_DIR, 'sub_app/py_templates')
+
+
