@@ -47,7 +47,13 @@ def image_pred(url,upload=True):
 	out31=getpred(sess3,np.flip(img,0))
 	out32=getpred(sess3,np.flip(img,1))
 
-	out=np.mean([out1,out11,out12,out2,out21,out22,out3,out31,out32],axis=0)
+	# out1=np.mean([out1,out11,out12],axis=0)
+	# out2=np.mean([out2,out21,out22],axis=0)
+	# out3=np.mean([out3,out31,out32],axis=0)
+
+	
+	print(np.argmax(out1),np.argmax(out2),np.argmax(out3))
+	out=np.mean([out1,out2,out3],axis=0)
 
 	prob=np.exp(out)/sum(np.exp(out))
 
