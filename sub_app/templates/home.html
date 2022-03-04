@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<center><h2>Detection of skin disease using deep learning</h2></center>
+<center><h3>Detection of skin disease using deep learning</h3></center>
 
 <div class='divform'>
 	<center><h4>Upload Image or Enter URL</h4></center>
@@ -13,19 +13,19 @@
 <form action = "" method = "post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="row">
-      <div class="col-4">
-      	<label id="pic">Image File</label>
+      <div class="col-2">
+      	<label id="pic">File:</label>
       </div>
-      <div class="col-4">
+      <div class="col-2">
         <p id="pic" class="">{{ form.pic }} </p>
       </div>
   </div>
 
   <div class="row">
-      <div class="col-4">
-      	<label id="url">Image URL</label>
+      <div class="col-2">
+      	<label id="url">URL:</label>
       </div>
-      <div class="col-4">
+      <div class="col-2">
         <p id="url" class="">{{ form.url }} </p>
       </div>
   </div>
