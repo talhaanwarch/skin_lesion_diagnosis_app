@@ -22,7 +22,8 @@ def home(request):
 			url=form.cleaned_data['url']
 			if img:
 				fs = FileSystemStorage()
-				filename = fs.save(img.name, img)
+				filename = fs.save(img.name.replace(' ',''), img)
+
 				path = fs.url(filename)
 				label,proba=image_pred(path)
 				#path=os.path.join(settings.MEDIA_ROOT,filename)

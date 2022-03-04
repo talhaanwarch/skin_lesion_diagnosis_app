@@ -34,14 +34,20 @@ def image_pred(url,upload=True):
 
 	sess1=SubAppConfig.model1_session
 	out1=getpred(sess1,img)
+	out11=getpred(sess1,np.flip(img,0))
+	out12=getpred(sess1,np.flip(img,1))
 
 	sess2=SubAppConfig.model2_session
 	out2=getpred(sess2,img)
+	out21=getpred(sess2,np.flip(img,0))
+	out22=getpred(sess2,np.flip(img,1))
 
 	sess3=SubAppConfig.model3_session
 	out3=getpred(sess3,img)
+	out31=getpred(sess3,np.flip(img,0))
+	out32=getpred(sess3,np.flip(img,1))
 
-	out=np.mean([out1,out2,out3],axis=0)
+	out=np.mean([out1,out11,out12,out2,out21,out22,out3,out31,out32],axis=0)
 
 	prob=np.exp(out)/sum(np.exp(out))
 
