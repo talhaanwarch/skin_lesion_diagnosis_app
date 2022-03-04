@@ -3,3 +3,4 @@
 *.jpg
 *.png
 *.jpeg
+!logo.png
