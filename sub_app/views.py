@@ -36,7 +36,10 @@ def home(request):
 				form = SkinForm()
 				return render(request,'home.html',{'form':form,'pred':"None"})
 
-			out=list(zip(decode.values(),proba*100))
+
+			out=list(reversed(sorted(zip(list(proba*100), list(decode.values())))))
+			out=[[j,i] for i,j in out]
+
 			statement='Chances of {} are {}%'.format(decode[label],int(proba[label]*100))
 			return render(request,'home.html',{'form':form,'pred':out,'path':path,'disease':statement})
 	else:
