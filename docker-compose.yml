@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+  skin_django_app:
+    build: .
+    ports:
+      - "8009:8009"
+    env_file:
+      - .env
